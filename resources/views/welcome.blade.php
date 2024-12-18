@@ -89,7 +89,7 @@
           <div class="card-body d-flex flex-column">
 
             <div class="mb-4">
-              <img alt="Basic Plan" class="img-fluid" src="{{ asset('img/charging_icon.png') }}" style="width: 150px">
+              <img alt="Basic Plan" class="img-fluid" src="{{ asset('img/fuel_tank_icon.png') }}" style="width: 150px">
             </div>
 
 
@@ -99,7 +99,7 @@
             <ul class="mb-4 text-start">
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                Limit charging 100 kWh
+                Fuel refill limit 15 L/month
               </li>
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
@@ -109,7 +109,7 @@
 
 
             <div class="mt-auto">
-              <button class="btn btn-primary btn-lg w-100">Subscribe</button>
+              <button class="btn btn-primary btn-lg w-100">Rp.100k / month</button>
             </div>
           </div>
         </div>
@@ -120,30 +120,30 @@
         <div class="card h-100 p-4 text-center">
           <div class="card-body d-flex flex-column">
             <div class="mb-4">
-              <img alt="Premium Plan" class="img-fluid" src="{{ asset('img/fast_charging_icon.png') }}"
+              <img alt="Premium Plan" class="img-fluid" src="{{ asset('img/oil_rig_icon.png') }}"
                 style="width: 150px">
             </div>
             <h3 class="card-title mb-4">Premium</h3>
             <ul class="mb-4 text-start">
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                Limit charging 300 kWh
+                Fuel refill limit 50 L/month
               </li>
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
                 Diskon 20% pengisian tambahan
               </li>
-              <li class="mb-3">
+              <!-- <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
                 Akses waiting lounge
-              </li>
+              </li> -->
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
                 Poin loyalitas
               </li>
             </ul>
             <div class="mt-auto">
-              <button class="btn btn-primary btn-lg w-100">Subscribe</button>
+              <button class="btn btn-primary btn-lg w-100">Rp.250k / month</button>
             </div>
           </div>
         </div>
