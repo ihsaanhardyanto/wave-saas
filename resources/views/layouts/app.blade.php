@@ -20,6 +20,10 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- custom css & bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset("custom/style.css") }}">
 </head>
 <body>
     <div id="app">
@@ -35,12 +39,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+
                     <ul class="navbar-nav me-auto ">
+                        @auth
                         <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 1</a></li>
                         <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 2</a></li>
                         <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 3</a></li>
                         <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 4</a></li>
+                        @endauth
                     </ul>
+                    
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -49,13 +57,15 @@
                             
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <!-- <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a> -->
+                                    <a class="nav-link" href="{{ route('login') }}"><button type="button" class="btn btn-outline-primary me-2">{{ __('Login') }}</button></a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <!-- <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a> -->
+                                    <a class="nav-link" href="{{ route('login') }}"><button type="button" class="btn btn-primary">{{ __('Register') }}</button></a>
                                 </li>
                             @endif
                         @else
@@ -65,9 +75,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.edit') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                         {{ __('Profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
