@@ -1,4 +1,9 @@
 <!doctype html>
+@php
+    use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -7,7 +12,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Eco Fuelink') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -19,9 +24,10 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid px-5">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset("img/logo_ecofuel.png") }}" style="width:50px;height:auto;" alt="">
+                    <span class="fw-bold fs-3 px-3">{{ config('Eco Fuelink', 'Eco Fuelink') }}</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -29,14 +35,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav me-auto ">
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 1</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 2</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 3</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 4</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest 
+                            
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -55,6 +65,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -75,6 +90,13 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- Footer -->
+        <div class="container-fluid">
+            <footer class="py-3 my-4">
+                <p class="text-center text-body-secondary border-top pt-3 mt-3">© 2024 Eco-Fuelink, Inc</p>
+            </footer>
+        </div>
     </div>
 </body>
 </html>
