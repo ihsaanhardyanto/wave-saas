@@ -19,8 +19,8 @@
   <link href="//fonts.bunny.net" rel="dns-prefetch">
   <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-  <!-- Scripts -->
-  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -36,50 +36,48 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse collapse" id="navbarSupportedContent">
-          <!-- Left Side Of Navbar -->
-          @auth
-            <ul class="navbar-nav me-auto">
-              <li><a class="nav-link link-dark fw-bold px-5" href="#">Navbar 1</a></li>
-              <li><a class="nav-link link-dark fw-bold px-5" href="#">Navbar 2</a></li>
-              <li><a class="nav-link link-dark fw-bold px-5" href="#">Navbar 3</a></li>
-              <li><a class="nav-link link-dark fw-bold px-5" href="#">Navbar 4</a></li>
-            </ul>
-          @endauth
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto ">
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 1</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 2</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 3</a></li>
+                        <li><a href="#" class="nav-link px-5 link-dark fw-bold">Navbar 4</a></li>
+                    </ul>
 
-          <!-- Right Side Of Navbar -->
-          <ul class="navbar-nav ms-auto">
-            <!-- Authentication Links -->
-            @guest
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                        @guest 
+                            
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
 
-              @if (Route::has('login'))
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-              @endif
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
 
-              @if (Route::has('register'))
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-              @endif
-            @else
-              <li class="nav-item dropdown">
-                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                  href="#" id="navbarDropdown" role="button" v-pre>
-                  {{ Auth::user()->name }}
-                </a>
-
-                <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-end">
-                  <a class="dropdown-item" href="{{ route('profile.show', Auth::user()) }}">
-                    {{ __('Profile') }}
-                  </a>
-
-                  <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                  </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Profile') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
                   <form action="{{ route('logout') }}" class="d-none" id="logout-form" method="POST">
                     @csrf

@@ -153,3 +153,46 @@ logo-icon{
     border-radius: 20px;
     display: block;
 }
+
+.form-container{
+    font-family: "Nunito", serif;
+    font-size: 18px;
+    border: solid 1px;
+    border-radius: 20px;
+}
+
+.register-form-container{
+    font-family: "Nunito", serif;
+    font-size: 18px;
+    font-weight: 700;
+    border: solid 1px;
+    border-radius: 20px;
+    background-color: #1F8A70;
+    color: #fff;
+    border: solid 1px;
+    border-radius: 20px;
+}
+
+.auth-btn{
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 18px;
+    background-color: #FFB347;
+}
+
+.login-btn-text{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 18px;
+}
+
+.img-login{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.img-register{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
