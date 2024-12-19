@@ -2,20 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;  // Hanya gunakan trait yang diperlukan
 
-    protected $fillable = ['name', 'email', 'password', 'role', 'profile_picture', 'subscription_id', 'gas_limit', 'gas_used'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+        'profile_picture',
+        'gas_limit',
+        'gas_used'
+    ];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    public function subscription()
-    {
-        return $this->belongsTo(Subscription::class);
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }

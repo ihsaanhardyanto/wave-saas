@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('subscription_id')->nullable();
             $table->integer('gas_limit')->default(0);
             $table->integer('gas_used')->default(0);
+            $table->rememberToken();
             $table->timestamps();
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('set null');
         });
