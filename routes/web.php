@@ -13,11 +13,11 @@ Auth::routes();
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->middleware('verified')->name('dashboard');
-    Route::post('/generate-qr', [HomeController::class, 'generateQRCode'])->name('generate-qr');
+    Route::post('/generate-qr', [HomeController::class, 'generateQRCode'])->name('generate.qr');
     Route::post('/process-qr', [HomeController::class, 'processQRCode'])->name('process-qr');
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {

@@ -12,11 +12,17 @@
             <div class="mb-3">
                 <div class="d-flex justify-content-between">
                     <span>Gas Used: {{ $user->gas_used }} / {{ $user->gas_limit }}</span>
-                    <span>{{ number_format(($user->gas_used / $user->gas_limit) * 100, 2) }}%</span>
+                    <span>
+                        @if($user->gas_limit > 0)
+                            {{ number_format(($user->gas_used / $user->gas_limit) * 100, 2) }}%
+                        @else
+                            N/A
+                        @endif
+                    </span>
                 </div>
                 <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar"
-                         style="width: {{ ($user->gas_used / $user->gas_limit) * 100 }}%;"
+                         style="width: {{ $user->gas_limit > 0 ? ($user->gas_used / $user->gas_limit) * 100 : 0 }}%;"
                          aria-valuenow="{{ $user->gas_used }}" aria-valuemin="0"
                          aria-valuemax="{{ $user->gas_limit }}">
                     </div>
@@ -26,14 +32,20 @@
             <!-- QR Code Generator -->
             <div>
                 <h4 class="card-title">Generate QR for Gas Refill</h4>
-                <form id="qr-form" method="POST" action="{{ route('generate-qr') }}">
+                <form id="qr-form" method="POST" action="/generate-qr">
                     @csrf
                     <div class="mb-3">
                         <label for="amount" class="form-label">Enter Gas Refill Amount</label>
                         <input type="number" name="amount" id="amount" class="form-control"
-                               placeholder="Enter amount (e.g., 1, 2)" min="1" max="{{ $user->gas_limit - $user->gas_used }}" required>
+                               placeholder="Enter amount (e.g., 1, 2)"
+                               min="1"
+                               max="{{ $user->gas_limit > $user->gas_used ? $user->gas_limit - $user->gas_used : 0 }}"
+                               required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Generate QR Code</button>
+                    <button type="submit" class="btn btn-primary"
+                            @if($user->gas_limit <= $user->gas_used) disabled @endif>
+                        Generate QR Code
+                    </button>
                 </form>
 
                 @if(session('qr_code'))

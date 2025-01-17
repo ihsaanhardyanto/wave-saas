@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class HomeController extends Controller
@@ -43,13 +44,11 @@ class HomeController extends Controller
 
         $amount = $request->input('amount');
 
-        // Generate QR code data
         $qrData = [
             'user_id' => $user->id,
             'amount' => $amount,
         ];
 
-        // Generate the QR code
         $qrCode = base64_encode(QrCode::size(200)->generate(json_encode($qrData)));
 
         return back()->with('qr_code', $qrCode);
@@ -69,7 +68,6 @@ class HomeController extends Controller
             return response()->json(['message' => 'Invalid request or gas limit exceeded'], 400);
         }
 
-        // Update the user's gas usage
         $user->gas_used += $amount;
         $user->save();
 
