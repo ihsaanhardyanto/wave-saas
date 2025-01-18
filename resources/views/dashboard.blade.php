@@ -2,7 +2,21 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="text-center">Dashboard</h2>
+    <h2 class="text-center mb-3">Dashboard</h2>
+
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <div class="card shadow-sm">
         <div class="card-body">
@@ -51,7 +65,14 @@
                 @if(session('qr_code'))
                 <div class="mt-4 text-center">
                     <h5>Scan QR Code:</h5>
-                    <img src="data:image/png;base64,{{ session('qr_code') }}" alt="QR Code">
+                    <!-- <img src="data:image/png;base64,{{ session('qr_code') }}" alt="QR Code"> -->
+                    {!! session('qr_code') !!}
+                </div>
+                <div class="mt-3 mb-5 text-center">
+                    <form method="POST" action="{{ route('process-qr') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-primary px-3 py-1 fw-bold fs-3">Use QR</button>
+                    </form>
                 </div>
                 @endif
             </div>

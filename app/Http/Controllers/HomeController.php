@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -49,7 +50,12 @@ class HomeController extends Controller
             'amount' => $amount,
         ];
 
-        $qrCode = base64_encode(QrCode::size(200)->generate(json_encode($qrData)));
+        // karena implementasi qr code hanya bisa dilakukan jika sudah di deploy maka untuk sekarang data akan disimpan di user
+        Session::put('qr_data', $qrData);
+
+        // $qrCode = base64_encode(QrCode::size(200)->generate(json_encode($qrData)));
+        $qrCode = QrCode::size(200)->generate(json_encode($qrData));
+
 
         return back()->with('qr_code', $qrCode);
     }
@@ -61,16 +67,27 @@ class HomeController extends Controller
     {
         $qrData = json_decode($request->input('qr_data'), true);
 
+        $qrData = Session::get('qr_data');
+
+        if (!$qrData) {
+            return response()->json(['message' => 'QR data not found'], 400);
+        }
+
         $user = User::find($qrData['user_id']);
         $amount = $qrData['amount'];
 
         if (!$user || ($user->gas_used + $amount > $user->gas_limit)) {
-            return response()->json(['message' => 'Invalid request or gas limit exceeded'], 400);
+            // return response()->json(['message' => 'Invalid request or gas limit exceeded'], 400);
+            return redirect()->back()->with('error', 'Invalid request or gas limit exceeded');
         }
 
         $user->gas_used += $amount;
         $user->save();
 
-        return response()->json(['message' => 'Gas usage updated successfully'], 200);
+        // hapus data setelah di save
+        Session::forget('qr_data');
+
+        // return response()->json(['message' => 'Gas usage updated successfully'], 200);
+        return redirect()->back()->with('success', 'Gas usage update successfully');
     }
 }

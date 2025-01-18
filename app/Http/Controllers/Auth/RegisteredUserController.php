@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'gas_limit' => 255 // ini mungkin bakal jadi masalah, coba bikin fitur logout trs coba lg
         ]);
 
         event(new Registered($user));
