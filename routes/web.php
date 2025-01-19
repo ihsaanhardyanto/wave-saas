@@ -15,10 +15,19 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\SubscriptionController;
+
 // use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Subscription routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/subscription/payment', [SubscriptionController::class, 'showPayment'])->name('subscription.payment');
+    Route::post('/subscription/create-payment', [SubscriptionController::class, 'createPayment'])->name('subscription.create-payment');
+    Route::post('/subscription/callback', [SubscriptionController::class, 'handleCallback'])->name('subscription.callback');
 });
 
 Auth::routes();
