@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.dashboardmaster')
 
 @section('content')
 <div class="container mt-4">
@@ -34,12 +34,11 @@
                         @endif
                     </span>
                 </div>
+                <!-- style="width: {{ $user->gas_limit > 0 ? ($user->gas_used / $user->gas_limit) * 100 : 0 }}%;" -->
                 <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar"
-                         style="width: {{ $user->gas_limit > 0 ? ($user->gas_used / $user->gas_limit) * 100 : 0 }}%;"
-                         aria-valuenow="{{ $user->gas_used }}" aria-valuemin="0"
-                         aria-valuemax="{{ $user->gas_limit }}">
-                    </div>
+                    <!-- <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $user->gas_used / $user->gas_limit * 100}}%;" aria-valuenow="{{ $user->gas_used }}" aria-valuemin="0" aria-valuemax="{{ $user->gas_limit }}">
+                    </div> -->
+                    <div class="progress-bar bg-primary" style="width: {{ $user->gas_limit > 0 ? ($user->gas_used / $user->gas_limit) * 100 : 0 }}%;"></div>
                 </div>
             </div>
 

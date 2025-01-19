@@ -196,3 +196,22 @@ logo-icon{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
+
+.progress {
+    width:auto;
+    height: 20px; /* Sesuaikan tinggi progress bar */
+    background-color: #e9ecef; /* Warna background progress bar */
+    border-radius: 5px; /* Membuat ujung membulat */
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #1F8A70 !important;
+    /* height: 100%; Pastikan tinggi bar sesuai dengan container */
+    transition: width 0.4s ease; /* Memberikan animasi transisi */
+    
+}
+
+.bg-primary{
+    background-color: #1F8A70;
+}
