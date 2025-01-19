@@ -83,14 +83,15 @@
             <div class="col-md-8">
               <div class="subscription-options">
                 <div class="form-check mb-3">
-                  <input class="form-check-input" id="basic" name="subscription_plan" required type="radio"
-                    value="basic">
+                  <input {{ ($plan ?? old('subscription_plan')) == 'basic' ? 'checked' : '' }} class="form-check-input"
+                    id="basic" name="subscription_plan" required type="radio" value="basic">
                   <label class="form-check-label" for="basic">
                     Basic - Rp 100.000/month
                   </label>
                 </div>
                 <div class="form-check mb-3">
-                  <input class="form-check-input" id="premium" name="subscription_plan" type="radio" value="premium">
+                  <input {{ ($plan ?? old('subscription_plan')) == 'premium' ? 'checked' : '' }} class="form-check-input"
+                    id="premium" name="subscription_plan" type="radio" value="premium">
                   <label class="form-check-label" for="premium">
                     Premium - Rp 250.000/month
                   </label>
@@ -106,7 +107,7 @@
 
           <div class="row justify-content-center mb-0 mt-5">
             <div class="col-md-8">
-              <button class="btn btn-primary auth-btn"
+              <button class="btn btn-primary auth-btn w-100"
                 style="font-family: 'Nunito', serif; font-weight: 700; padding-top: 0.6rem; padding-bottom: 0.6rem; background-color: #FF8C00;"
                 type="submit">
                 {{ __('Continue to Payment') }}
@@ -134,10 +135,60 @@
       border: 1px solid #eee;
       border-radius: 5px;
       margin-bottom: 10px;
+      transition: all 0.3s ease;
     }
 
     .subscription-options .form-check:hover {
       background-color: #f8f9fa;
+      border-color: #FF8C00;
+    }
+
+    .subscription-options .form-check-input:checked+.form-check-label {
+      font-weight: bold;
+    }
+
+    .subscription-options .form-check-input:checked~.form-check {
+      border-color: #FF8C00;
+    }
+
+    .plan-features {
+      margin-top: 5px;
+      margin-left: 20px;
+    }
+
+    .plan-features small {
+      display: block;
+      line-height: 1.4;
+    }
+
+    .subscription-options .form-check.selected {
+      border-color: #FF8C00;
+      background-color: #fff8f0;
     }
   </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const subscriptionInputs = document.querySelectorAll('input[name="subscription_plan"]');
+
+      subscriptionInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          // Remove selected class from all form-checks
+          document.querySelectorAll('.subscription-options .form-check').forEach(el => {
+            el.classList.remove('selected');
+          });
+
+          // Add selected class to the parent form-check of the checked input
+          if (this.checked) {
+            this.closest('.form-check').classList.add('selected');
+          }
+        });
+
+        // Initialize selected state for the pre-selected plan
+        if (input.checked) {
+          input.closest('.form-check').classList.add('selected');
+        }
+      });
+    });
+  </script>
 @endsection

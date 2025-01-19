@@ -87,15 +87,10 @@
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card h-100 p-4 text-center">
           <div class="card-body d-flex flex-column">
-
             <div class="mb-4">
               <img alt="Basic Plan" class="img-fluid" src="{{ asset('img/fuel_tank_icon.png') }}" style="width: 150px">
             </div>
-
-
             <h3 class="card-title mb-4">Basic</h3>
-
-
             <ul class="mb-4 text-start">
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
@@ -106,10 +101,8 @@
                 Diskon 10% pengisian tambahan
               </li>
             </ul>
-
-
             <div class="mt-auto">
-              <button class="btn btn-primary btn-lg w-100">Rp.100k / month</button>
+              <a href="{{ route('register', ['plan' => 'basic']) }}" class="btn btn-primary btn-lg w-100">Rp.100k / month</a>
             </div>
           </div>
         </div>
@@ -120,8 +113,7 @@
         <div class="card h-100 p-4 text-center">
           <div class="card-body d-flex flex-column">
             <div class="mb-4">
-              <img alt="Premium Plan" class="img-fluid" src="{{ asset('img/oil_rig_icon.png') }}"
-                style="width: 150px">
+              <img alt="Premium Plan" class="img-fluid" src="{{ asset('img/oil_rig_icon.png') }}" style="width: 150px">
             </div>
             <h3 class="card-title mb-4">Premium</h3>
             <ul class="mb-4 text-start">
@@ -133,21 +125,17 @@
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
                 Diskon 20% pengisian tambahan
               </li>
-              <!-- <li class="mb-3">
-                <i class="bi bi-check-circle-fill text-primary me-2"></i>
-                Akses waiting lounge
-              </li> -->
               <li class="mb-3">
                 <i class="bi bi-check-circle-fill text-primary me-2"></i>
                 Poin loyalitas
               </li>
             </ul>
             <div class="mt-auto">
-              <button class="btn btn-primary btn-lg w-100">Rp.250k / month</button>
+              <a href="{{ route('register', ['plan' => 'premium']) }}" class="btn btn-primary btn-lg w-100">Rp.250k / month</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
+</div>
   </section>
 @endsection

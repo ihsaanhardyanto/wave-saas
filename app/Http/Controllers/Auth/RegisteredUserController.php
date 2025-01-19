@@ -14,9 +14,16 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('auth.register');
+        $plan = $request->plan;
+
+        // Validate that only 'basic' or 'premium' plans are accepted
+        if ($plan && !in_array($plan, ['basic', 'premium'])) {
+            abort(404);
+        }
+
+        return view('auth.register', compact('plan'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -28,11 +35,14 @@ class RegisteredUserController extends Controller
             'subscription_plan' => ['required', 'in:basic,premium'],
         ]);
 
+        // Set gas limit based on subscription plan
+        $gasLimit = $request->subscription_plan === 'basic' ? 15 : 50;
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'gas_limit' => 255,
+            'gas_limit' => $gasLimit,
             'subscription_status' => 'pending',
             'subscription_plan' => $request->subscription_plan,
         ]);

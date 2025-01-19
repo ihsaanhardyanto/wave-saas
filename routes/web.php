@@ -17,8 +17,6 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\SubscriptionController;
 
-// use Illuminate\Support\Facades\Route;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,13 +30,11 @@ Route::middleware(['auth'])->group(function () {
 
 Auth::routes();
 
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [HomeController::class, 'index'])->middleware('verified')->name('dashboard');
     Route::post('/generate-qr', [HomeController::class, 'generateQRCode'])->name('generate.qr');
     Route::post('/process-qr', [HomeController::class, 'processQRCode'])->name('process-qr');
-
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -47,10 +43,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 // dari auth.php
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    Route::get('register/{plan?}', [RegisteredUserController::class, 'create'])
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
